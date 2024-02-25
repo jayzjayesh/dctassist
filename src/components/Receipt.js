@@ -57,7 +57,8 @@ const Receipt = () => {
     return (
         <div id="showScroll" class="container">
             <div class="receipt">
-                <h1 class="logo">Receipt</h1>
+                <h1 className="logo">Receipt</h1>
+                <img className='paisaLogo' src='paisa_logo.png'/>
                 {!imageUploaded && !loading &&
                     <form action="/action_page.php">
                         <input type="file" id="myFile" name="filename" onChange={onFileUpload}></input>

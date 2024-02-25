@@ -8,6 +8,7 @@ const Receipt = () => {
     const [updatedTransaction, setUpdatedTransaction] = useState(transactions);
     const [imageUploaded, setImageUploaded] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [eachPersonTotal, setPersonTotal] = useState([]);
 
     const onChangePeopleItem = (value, selected, receiptItem) => {
         const updatedList = updatedTransaction.items.map((op) => {
@@ -16,9 +17,9 @@ const Receipt = () => {
                     const updatedSplit = op.split.filter((peopleId) => peopleId != value)
                     return { ...op, split: updatedSplit };
                 } else {
-                    if(op.split){
-                    op.split.push(value)
-                    }else{
+                    if (op.split) {
+                        op.split.push(value)
+                    } else {
                         op['split'] = [value]
                     }
                     return op;
@@ -26,10 +27,14 @@ const Receipt = () => {
             }
             return op
         });
-        setUpdatedTransaction({...updatedTransaction, items: updatedList});
+        setUpdatedTransaction({ ...updatedTransaction, items: updatedList });
     }
 
-    const eachPersonTotal = getEachPersonTotal(updatedTransaction.items);
+    useEffect(() => {
+        if (imageUploaded) {
+            setPersonTotal(getEachPersonTotal(updatedTransaction.items));
+        }
+    }, [updatedTransaction.items])
 
     const onFileUpload = async (event) => {
         const imageInput = document.getElementById('myFile');
@@ -45,7 +50,7 @@ const Receipt = () => {
             const data = await response.json();
             setLoading(false);
             setImageUploaded(true);
-            setUpdatedTransaction({...updatedTransaction, ...data})
+            setUpdatedTransaction({ ...updatedTransaction, ...data })
         } catch (error) {
             setLoading(false);
             setImageUploaded(false);
@@ -58,7 +63,7 @@ const Receipt = () => {
         <div id="showScroll" class="container">
             <div class="receipt">
                 <h1 className="logo">Receipt</h1>
-                <img className='paisaLogo' src='paisa_logo.png'/>
+                <img className='paisaLogo' src='paisa_logo.png' />
                 {!imageUploaded && !loading &&
                     <form action="/action_page.php">
                         <input type="file" id="myFile" name="filename" onChange={onFileUpload}></input>

@@ -4,7 +4,7 @@ This project was developed to use OCR as a feature to parse receipts using any O
 
 Individual receipt split amount can be obtained by the same.
 
-Devpost : https://devpost.com/submit-to/20592-revolutionuc/manage/submissions
+Devpost : https://devpost.com/software/paisa?ref_content=my-projects-tab&ref_feature=my_projects
 
 Working : https://paisa-frontend.onrender.com/
 
